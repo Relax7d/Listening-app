@@ -608,7 +608,12 @@ async function generateText() {
         }
         
         // 使用带重试机制的fetch
-        const response = await fetchWithRetry('http://localhost:3000/api/generate', {
+        // 自动检测是否在Vercel环境，使用相对路径
+        const apiBaseUrl = window.location.hostname.includes('vercel.app')
+            ? '/api'
+            : 'http://localhost:3000/api';
+
+        const response = await fetchWithRetry(`${apiBaseUrl}/generate`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -738,7 +743,12 @@ async function generateQuestions() {
         }
 
         // 使用带重试机制的fetch
-        const response = await fetchWithRetry('http://localhost:3000/api/generate-questions', {
+        // 自动检测是否在Vercel环境，使用相对路径
+        const apiBaseUrl = window.location.hostname.includes('vercel.app')
+            ? '/api'
+            : 'http://localhost:3000/api';
+
+        const response = await fetchWithRetry(`${apiBaseUrl}/generate-questions`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
